@@ -28,4 +28,22 @@ async createOrUpdate(user: User): Promise<User> {
 
 }
 
+async login(email: string, password: string): Promise<User>{
+    const user = await this.usersRepository.findOne({ 
+        where:{
+            email
+        }
+     });
+
+    if (user){
+        const isMatch = await bcrypt.compare(password, user.getPassword());
+
+        if (isMatch){
+            return user
+        }
+    }
+
+    return null;
+}
+
 }
