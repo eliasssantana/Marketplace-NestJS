@@ -21,8 +21,13 @@ async function bootstrap() {
       saveUninitialized: false,
     })
   )
-  app.use(function (req,res, next){
+  app.use((req,res, next) =>{
     res.locals.session = req.session
+    const flashErrors: string[] = req.session.flashErrors;
+    if(flashErrors){
+      res.locals.flashErrors = flashErrors;
+      req.session.flashErrors = null;
+    }
     next()
   })
   await app.listen(3000);

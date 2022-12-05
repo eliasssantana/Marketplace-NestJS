@@ -13,6 +13,12 @@
                     <div class="card-header">Register</div>
 
                     <div class="card-body">
+                        
+                        {{#if flashErrors}}
+                            {{#each flashErrors}}
+                                <p class="alert alert-danger">{{this}}</p>
+                            {{/each}}
+                        {{/if}}
 
                         <form method="POST" action="/auth/store">
 
